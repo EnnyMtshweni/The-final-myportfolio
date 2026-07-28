@@ -1,0 +1,89 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* colour schemes/ the colours i am going to use trought the portfolio */
+:root {
+  --accent: #0B5DA6;        /* ocean blue */
+  --accent-dim: #0B5DA633;  /* ocean blue at low opacity, for borders/glow */
+
+  --bg: #0D1117;            /* dark mode background (near-black, slight blue tint) */
+  --bg-alt: #161B22;        /* slightly lighter panel background */
+  --text: #E6EDF3;          /* light grey/white text on dark bg */
+  --text-dim: #8B949E;      /* muted grey for secondary text */
+  --border: #30363D;
+}
+
+body.light-mode {
+  --bg: #FFFFFF;
+  --bg-alt: #F2F4F7;
+  --text: #1A1A1A;
+  --text-dim: #555555;
+  --border: #D8DEE4;
+}
+
+/* The base */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar section */
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg);
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  border: 1px solid var(--accent);
+  padding: 0.3rem 0.7rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+#theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+#theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
