@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — [Your Name]</title>
+  <meta name="description" content="About [Your Name], a fintech-focused software engineer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR (shared) ===== -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html#home" class="logo">
+        <span class="logo__bracket">&lt;</span>YN<span class="logo__bracket">/&gt;</span>
+      </a>
+
+      <nav class="nav" id="primary-nav">
+        <a href="index.html#home" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link is-active">About Me</a>
+        <a href="index.html#technologies" class="nav__link">Technologies</a>
+        <a href="index.html#projects" class="nav__link">Projects</a>
+        <a href="index.html#certificates" class="nav__link">Certificates</a>
+        <a href="index.html#contact" class="nav__link">Contact</a>
+      </nav>
+
+      <div class="navbar-actions">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
+          <span class="theme-toggle__icon" aria-hidden="true"></span>
+        </button>
+        <button id="nav-burger" class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section about-page">
+      <div class="section__inner about-page__grid">
+
+        <div class="about-page__story">
+          <p class="section__eyebrow">01 // ABOUT</p>
+          <h1 class="section__title">My Story</h1>
+          <div class="placeholder-block">
+            <p>Full bio content is written on Day 4. This page currently shares the
+            site's navbar and footer per the Day 1 structure pass.</p>
+          </div>
+        </div>
+
+        <aside class="about-page__side">
+          <div class="cv-panel placeholder-block">
+            <h2 class="cv-panel__title terminal-text">// cv_viewer</h2>
+            <p>Inline, non-downloadable CV viewer — built on Day 4.</p>
+          </div>
+
+          <div class="ai-widget placeholder-block">
+            <h2 class="ai-widget__title terminal-text">// ai_speaking.log</h2>
+            <p>Content for this panel is still to be decided (see Day 3 notes).</p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER (shared) ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="terminal-text">&copy; <span id="year"></span> [Your Name]. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

@@ -1,88 +1,553 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==========================================================================
+   1. COLOUR SYSTEM  (Day 2)
+   No gradients anywhere except the single-colour ocean-blue conic ring.
+   ========================================================================== */
 
-/* colour schemes/ the colours i am going to use trought the portfolio */
 :root {
-  --accent: #0B5DA6;        /* ocean blue */
-  --accent-dim: #0B5DA633;  /* ocean blue at low opacity, for borders/glow */
+  /* Accent — ocean blue, the only accent colour in the palette */
+  --ocean: #0077b6;
+  --ocean-bright: #48cae4;
+  --ocean-dim: #023e5c;
 
-  --bg: #0D1117;            /* dark mode background (near-black, slight blue tint) */
-  --bg-alt: #161B22;        /* slightly lighter panel background */
-  --text: #E6EDF3;          /* light grey/white text on dark bg */
-  --text-dim: #8B949E;      /* muted grey for secondary text */
-  --border: #30363D;
+  /* Dark mode surfaces */
+  --bg-dark: #0a0e14;
+  --surface-dark: #10161f;
+  --border-dark: #1e2733;
+  --text-dark: #e6edf3;
+  --text-dark-muted: #8291a3;
+
+  /* Light mode surfaces */
+  --bg-light: #f7f9fb;
+  --surface-light: #ffffff;
+  --border-light: #dde3ea;
+  --text-light: #131a22;
+  --text-light-muted: #55636f;
+
+  /* Type */
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout */
+  --max-width: 1180px;
+  --nav-height: 72px;
+  --radius: 6px;
+
+  /* Active theme (defaults to dark; overridden by [data-theme="light"]) */
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --border: var(--border-dark);
+  --text: var(--text-dark);
+  --text-muted: var(--text-dark-muted);
 }
 
-body.light-mode {
-  --bg: #FFFFFF;
-  --bg-alt: #F2F4F7;
-  --text: #1A1A1A;
-  --text-dim: #555555;
-  --border: #D8DEE4;
+html[data-theme='light'] {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --border: var(--border-light);
+  --text: var(--text-light);
+  --text-muted: var(--text-light-muted);
 }
 
-/* The base */
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
-  background-color: var(--bg);
+  margin: 0;
+  background: var(--bg);
   color: var(--text);
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Navbar section */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 2.5rem;
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; }
+
+.terminal-text {
+  font-family: var(--font-mono);
+  color: var(--ocean-bright);
+  font-size: 0.85rem;
+}
+
+.section-inner, .navbar-inner, .footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+.section {
+  padding-block: 96px;
   border-bottom: 1px solid var(--border);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  color: var(--ocean);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+.placeholder-block {
+  margin-top: 32px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   3. NAVBAR  (Day 2)
+   ========================================================================== */
+
+.navbar {
   position: sticky;
   top: 0;
-  background-color: var(--bg);
   z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
 }
+
+.navbar-inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-inner .nav { justify-self: center; }
+.navbar-inner .navbar-actions { justify-self: end; }
 
 .logo {
-  font-size: 1.4rem;
+  font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 1px;
-  border: 1px solid var(--accent);
-  padding: 0.3rem 0.7rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
 }
 
-.nav-links {
+.logo-bracket { color: var(--ocean); }
+
+.nav {
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  gap: 28px;
 }
 
-.nav-links a {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 0.95rem;
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  position: relative;
+  padding-block: 4px;
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
-  color: var(--accent);
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--ocean);
+  transition: width 0.2s ease;
 }
 
-#theme-toggle {
-  background: transparent;
-  border: 1px solid var(--border);
+.nav-link:hover,
+.nav-link.is-active {
   color: var(--text);
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.85rem;
-  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-#theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+.theme-toggle:hover { border-color: var(--ocean); }
+
+.theme-toggle-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ocean);
+  display: block;
+  box-shadow: inset -4px -2px 0 0 var(--bg);
+}
+
+.nav-burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.nav-burger span {
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  display: block;
+}
+
+/* ==========================================================================
+   4. HERO & SIGNATURE EFFECTS  (Day 3)
+   ========================================================================== */
+
+.hero {
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  padding-inline: 24px;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Photo on the left, copy on the right */
+.hero-media { order: 1; }
+.hero-content { order: 2; }
+
+.hero-eyebrow {
+  margin: 0 0 20px;
+  min-height: 1.2em;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--ocean-bright);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.hero-name {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+
+.hero-role {
+  font-family: var(--font-mono);
+  color: var(--ocean);
+  font-size: 1.1rem;
+  margin: 0 0 20px;
+}
+
+.hero-intro {
+  max-width: 52ch;
+  color: var(--text-muted);
+  margin: 0 0 32px;
+}
+
+.hero-socials {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.hero-social {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.hero-social:hover {
+  border-color: var(--ocean);
+  color: var(--ocean-bright);
+  transform: translateY(-2px);
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 13px 26px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, border-color 0.2s ease, background-color 0.2s ease;
+  display: inline-block;
+}
+
+.btn--primary {
+  background: var(--ocean);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  background: var(--ocean-dim);
+}
+
+.btn--ghost {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ocean);
+  transform: translateY(-2px);
+}
+
+/* --- Profile photo + rotating ring ---
+   Single-colour ocean-blue conic-gradient — the one permitted gradient
+   in the entire site, used only here. */
+
+.hero-media {
+  display: flex;
+  justify-content: center;
+}
+
+.ring-wrap {
+  position: relative;
+  width: min(360px, 78vw);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+/* --- Wireframe globe (decorative, stroke-only — no fill, no gradient) --- */
+
+.globe-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 168%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.globe {
+  width: 100%;
+  height: 100%;
+  animation: globe-spin 50s linear infinite;
+}
+
+.globe circle,
+.globe ellipse,
+.globe line {
+  fill: none;
+  stroke: var(--ocean-bright);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.globe circle[r='3.5'],
+.globe circle[r='2.5'] {
+  fill: var(--ocean-bright);
+  stroke: none;
+}
+
+@keyframes globe-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe { animation: none; }
+}
+
+.ring-wrap-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--ocean) 0deg, var(--ocean) 300deg, transparent 300deg, transparent 360deg);
+  animation: spin 6s linear infinite;
+  padding: 6px;
+  z-index: 1;
+}
+
+.ring-wrap-ring::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.hero-photo {
+  position: relative;
+  width: 82%;
+  height: 82%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.scroll-cue span {
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--ocean);
+  animation: scrollcue 1.6s ease infinite;
+}
+
+@keyframes scrollcue {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(10px); opacity: 0; }
+}
+
+/* ==========================================================================
+   5. ABOUT PAGE (structural pass only — content on Day 4)
+   ========================================================================== */
+
+.about-page-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+}
+
+.about-page-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cv-panel-title,
+.ai-widget-title {
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   6. FOOTER
+   ========================================================================== */
+
+.footer {
+  padding-block: 32px;
+}
+
+.footer-inner {
+  text-align: center;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 48px;
+  }
+
+  .hero-intro { margin-inline: auto; }
+
+  .hero-socials { justify-content: center; }
+
+  .hero-cta { justify-content: center; }
+
+  .about-page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav { display: none; }
+  .nav-burger { display: flex; }
+
+  body.nav-open .nav {
+    display: flex;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    gap: 18px;
+  }
 }
