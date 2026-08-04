@@ -480,7 +480,206 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   5. ABOUT PAGE (structural pass only — content on Day 4)
+   5. TECHNOLOGIES / SKILL BARS
+   Bars fill via a JS-set inline width, triggered once by IntersectionObserver.
+   No animation library — plain CSS transition + JS observer.
+   ========================================================================== */
+
+.skills-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px 48px;
+}
+
+.skills-category__title {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+}
+
+.skill-bar {
+  margin-bottom: 18px;
+}
+
+.skill-bar__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.skill-bar__name { color: var(--text); }
+.skill-bar__value { color: var(--text-muted); }
+
+.skill-bar__track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.skill-bar__fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: var(--ocean);
+  transition: width 1s ease;
+}
+
+/* ==========================================================================
+   6. PROJECTS
+   ========================================================================== */
+
+.projects-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: var(--ocean);
+  transform: translateY(-3px);
+}
+
+.project-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+.project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  flex: 1;
+}
+
+.project-card__title {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.project-card__desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.project-card__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+.project-card__tags li {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ocean-bright);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* Case study — native <details>/<summary>, no JS needed for the toggle */
+.project-card__case-study {
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.project-card__case-study summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ocean);
+}
+
+.project-card__case-study summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-card__case-study summary::after {
+  content: '\25B8';
+  display: inline-block;
+  color: var(--ocean-bright);
+  transition: transform 0.2s ease;
+}
+
+.project-card__case-study[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.project-card__case-study-heading {
+  margin: 14px 0 8px;
+  font-size: 0.76rem;
+}
+
+.project-card__case-study p {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.project-card__case-study p strong {
+  color: var(--text);
+}
+
+.project-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.project-card__icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.project-card__icon-link:hover {
+  border-color: var(--ocean);
+  color: var(--ocean-bright);
+}
+
+/* ==========================================================================
+   7. ABOUT PAGE
    ========================================================================== */
 
 .about-page__grid {
@@ -488,6 +687,39 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
   grid-template-columns: 1.5fr 1fr;
   gap: 48px;
 }
+
+.about-page__lede {
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.about-page__story p {
+  color: var(--text-muted);
+  max-width: 62ch;
+  margin: 0 0 16px;
+}
+
+.about-page__lede { color: var(--text); }
+
+.about-page__facts {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.about-page__facts p {
+  margin: 0 0 6px;
+  color: var(--ocean-bright);
+  max-width: none;
+}
+
+.about-page__facts p:first-child {
+  color: var(--text-muted);
+}
+
+.about-page__facts p:last-child { margin-bottom: 0; }
 
 .about-page__side {
   display: flex;
@@ -500,8 +732,83 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
   margin-bottom: 10px;
 }
 
+.cv-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 18px;
+}
+
+.cv-viewer {
+  height: 360px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+}
+
+.cv-viewer__pages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+.cv-viewer__pages canvas {
+  max-width: 100%;
+  height: auto;
+  /* Discourage the easiest drag-to-save path; not a security guarantee. */
+  pointer-events: none;
+  user-select: none;
+}
+
+.cv-viewer__status {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.cv-viewer__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.cv-viewer__nav {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.cv-viewer__nav:hover { border-color: var(--ocean); }
+.cv-viewer__nav:disabled { opacity: 0.4; cursor: default; }
+
+.cv-viewer__page-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 56px;
+  text-align: center;
+}
+
+.cv-viewer__note {
+  margin: 14px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
 /* ==========================================================================
-   6. FOOTER
+   8. FOOTER
    ========================================================================== */
 
 .footer {
@@ -513,7 +820,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   7. BOOT OVERLAY
+   9. BOOT OVERLAY
    Full-screen "system boot" sequence, shown once before the page reveals
    itself. Pure CSS/JS — no video or external animation library.
    ========================================================================== */
@@ -646,7 +953,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   8. AI SPEAKING PING
+   10. AI SPEAKING PING
    A small terminal-style bubble that slides in from the right edge,
    holds briefly, then slides back out — repeating on a timer.
    ========================================================================== */
@@ -692,7 +999,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   9. RESPONSIVE
+   11. RESPONSIVE
    ========================================================================== */
 
 @media (max-width: 860px) {

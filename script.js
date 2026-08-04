@@ -1,12 +1,5 @@
 // ==========================================================================
 // main.js
-// Day 1-3 scope: footer year, mobile nav toggle, terminal boot-up animation.
-// Theme toggle LOGIC is intentionally deferred to Day 8 (see project plan) —
-// the button is wired for a11y/visual state only right now.
-// ==========================================================================
-
-// ==========================================================================
-// main.js
 // Scope: footer year, mobile nav toggle, full-screen boot overlay,
 // hero status line, floating AI-speaking ping.
 // Theme toggle LOGIC is intentionally deferred to Day 8 (see project plan) —
@@ -20,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initBootOverlay();
   initBootAnimation();
   initAiPing();
+  initSkillBars();
+  initCvViewer();
 });
 
 /* ---- Footer year ---- */
@@ -201,4 +196,123 @@ function initAiPing() {
   }
 
   setTimeout(cycle, INITIAL_DELAY);
+}
+
+/* ---- Technologies: animate skill bars in once, on scroll into view ---- */
+function initSkillBars() {
+  const bars = document.querySelectorAll('.skill-bar');
+  if (!bars.length) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fill(bar) {
+    const level = parseInt(bar.dataset.level, 10) || 0;
+    const fillEl = bar.querySelector('.skill-bar__fill');
+    const valueEl = bar.querySelector('.skill-bar__value');
+    if (!fillEl || !valueEl) return;
+
+    if (reduceMotion) {
+      fillEl.style.width = level + '%';
+      valueEl.textContent = level + '%';
+      return;
+    }
+
+    fillEl.style.width = level + '%';
+
+    // Count the label up alongside the width transition (roughly 1s, matches CSS).
+    const DURATION = 900;
+    const start = performance.now();
+
+    function tick(now) {
+      const progress = Math.min(1, (now - start) / DURATION);
+      valueEl.textContent = Math.round(progress * level) + '%';
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    bars.forEach(fill); // fallback: just fill them
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          fill(entry.target);
+          obs.unobserve(entry.target); // animate once, then stay filled
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+
+  bars.forEach((bar) => observer.observe(bar));
+}
+
+/* ---- About page: non-downloadable CV viewer, rendered to <canvas> via pdf.js ---- */
+function initCvViewer() {
+  const viewer = document.getElementById('cv-viewer');
+  const pagesEl = document.getElementById('cv-viewer-pages');
+  const statusEl = document.getElementById('cv-viewer-status');
+  const prevBtn = document.getElementById('cv-prev');
+  const nextBtn = document.getElementById('cv-next');
+  const indicator = document.getElementById('cv-page-indicator');
+  if (!viewer || !pagesEl) return;
+
+  if (typeof pdfjsLib === 'undefined') {
+    if (statusEl) statusEl.textContent = 'CV preview unavailable — pdf.js failed to load.';
+    return;
+  }
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const src = viewer.dataset.src;
+  let pdfDoc = null;
+  let currentPage = 1;
+
+  // Block the easy right-click "save image as" path on the rendered canvas.
+  viewer.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  function renderPage(num) {
+    pdfDoc.getPage(num).then((page) => {
+      const viewport = page.getViewport({ scale: 1.3 });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+
+      page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+        pagesEl.innerHTML = '';
+        pagesEl.appendChild(canvas);
+      });
+    });
+
+    currentPage = num;
+    if (indicator) indicator.textContent = `${num} / ${pdfDoc.numPages}`;
+    if (prevBtn) prevBtn.disabled = num <= 1;
+    if (nextBtn) nextBtn.disabled = num >= pdfDoc.numPages;
+  }
+
+  pdfjsLib.getDocument(src).promise
+    .then((doc) => {
+      pdfDoc = doc;
+      renderPage(1);
+    })
+    .catch(() => {
+      if (statusEl) statusEl.textContent = 'CV preview unavailable right now.';
+    });
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (pdfDoc && currentPage > 1) renderPage(currentPage - 1);
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (pdfDoc && currentPage < pdfDoc.numPages) renderPage(currentPage + 1);
+    });
+  }
 }
