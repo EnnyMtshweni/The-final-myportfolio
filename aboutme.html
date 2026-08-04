@@ -12,9 +12,30 @@
 </head>
 <body>
 
+  <!-- ===== BOOT OVERLAY (shared) — plays once before content is revealed ===== -->
+  <div id="boot-overlay" class="boot-overlay" role="status" aria-live="polite">
+    <div class="boot-window">
+      <div class="boot-window__bar">
+        <span class="boot-dot boot-dot--a" aria-hidden="true"></span>
+        <span class="boot-dot boot-dot--b" aria-hidden="true"></span>
+        <span class="boot-dot boot-dot--c" aria-hidden="true"></span>
+        <span class="boot-window__title terminal-text">boot.sh</span>
+      </div>
+      <div class="boot-window__body">
+        <ul class="boot-log" id="boot-log"></ul>
+        <div class="boot-progress">
+          <div class="boot-progress__track">
+            <div class="boot-progress__fill" id="boot-progress-fill"></div>
+          </div>
+          <span class="boot-progress__pct" id="boot-progress-pct">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== NAVBAR (shared) ===== -->
   <header class="navbar">
-    <div class="navbar-inner">
+    <div class="navbar__inner">
       <a href="index.html#home" class="logo">
         <span class="logo__bracket">&lt;</span>YN<span class="logo__bracket">/&gt;</span>
       </a>
@@ -28,7 +49,7 @@
         <a href="index.html#contact" class="nav__link">Contact</a>
       </nav>
 
-      <div class="navbar-actions">
+      <div class="navbar__actions">
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
           <span class="theme-toggle__icon" aria-hidden="true"></span>
         </button>
@@ -74,6 +95,14 @@
       <p class="terminal-text">&copy; <span id="year"></span> [Your Name]. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ===== AI SPEAKING PING (shared) — slides in/out periodically ===== -->
+  <div class="ai-ping" id="ai-ping" aria-live="polite">
+    <div class="ai-ping__bubble">
+      <p class="ai-ping__label terminal-text">// ai_assistant</p>
+      <p class="ai-ping__message" id="ai-ping-message"></p>
+    </div>
+  </div>
 
   <script src="./script.js"></script>
 </body>
