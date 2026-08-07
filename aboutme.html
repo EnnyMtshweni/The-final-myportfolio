@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <!-- ===== BOOT OVERLAY (shared) — plays once before content is revealed ===== -->
+  <!--BOOT OVERLAY -->
   <div id="boot-overlay" class="boot-overlay" role="status" aria-live="polite">
     <div class="boot-window">
       <div class="boot-window__bar">
@@ -33,19 +33,18 @@
     </div>
   </div>
 
-  <!-- ===== NAVBAR (shared) ===== -->
+  <!-- NAVBAR  -->
   <header class="navbar">
     <div class="navbar__inner">
       <a href="index.html#home" class="logo">
-        <span class="logo__bracket">&lt;</span>YN<span class="logo__bracket">/&gt;</span>
+        <span class="logo__bracket">&lt;</span>EN<span class="logo__bracket">/&gt;</span>
       </a>
 
       <nav class="nav" id="primary-nav">
         <a href="index.html#home" class="nav__link">Home</a>
-        <a href="about.html" class="nav__link is-active">About Me</a>
+        <a href="./aboutme.html#" class="nav__link is-active">About Me</a>
         <a href="index.html#technologies" class="nav__link">Technologies</a>
         <a href="index.html#projects" class="nav__link">Projects</a>
-        <a href="index.html#certificates" class="nav__link">Certificates</a>
         <a href="index.html#contact" class="nav__link">Contact</a>
       </nav>
 
@@ -65,18 +64,67 @@
       <div class="section__inner about-page__grid">
 
         <div class="about-page__story">
-          <p class="section__eyebrow">01 // ABOUT</p>
+          <p class="section__eyebrow">01  ABOUT</p>
           <h1 class="section__title">My Story</h1>
-          <div class="placeholder-block">
-            <p>Full bio content is written on Day 4. This page currently shares the
-            site's navbar and footer per the Day 1 structure pass.</p>
+
+          <p class="about-page__lede">
+            I got into fintech by accident and stayed for the stakes. My first
+            production bug cost a real customer a real transaction — and that
+            was the moment "move fast" stopped being a slogan and became a
+            question I ask about every line I ship.
+          </p>
+
+          <p>
+            [Enny Mtshweni] here — a software engineer who builds the parts of
+            financial products that aren't allowed to fail quietly: payment
+            rails, auth flows, reconciliation jobs, anything where a silent
+            bug becomes someone else's bad day. I like the discipline fintech
+            forces on you. Every feature has to answer for itself under audit,
+            under load, and under attack, not just in a demo.
+          </p>
+
+          <p>
+            Most of my work sits at the intersection of backend engineering
+            and security — designing services that are boring in the best
+            way: predictable, observable, and hard to break by accident.
+            I care about clear error states as much as happy paths, because
+            in this domain the error state is usually where someone's money
+            is on the line.
+          </p>
+
+          <p>
+            Outside of production code, I spend time reading up on threat
+            models, breaking down how real payment outages happened, and
+            picking apart other engineers' postmortems for lessons I can
+            steal. [Add a personal detail here — a hobby, a side project,
+            what you do when you're not shipping.]
+          </p>
+
+          <div class="about-page__facts terminal-text" aria-label="Quick facts">
+            <p>&gt; whoami</p>
+            <p>focus: payments infrastructure &amp; security</p>
+            <p>based: [City, Country]</p>
+            <p>status: open to select engagements</p>
           </div>
         </div>
 
         <aside class="about-page__side">
-          <div class="cv-panel placeholder-block">
+          <div class="cv-panel">
             <h2 class="cv-panel__title terminal-text">// cv_viewer</h2>
-            <p>Inline, non-downloadable CV viewer — built on Day 4.</p>
+
+            <div class="cv-viewer" id="cv-viewer" data-src="assets/cv.pdf">
+              <div class="cv-viewer__pages" id="cv-viewer-pages">
+                <p class="cv-viewer__status" id="cv-viewer-status">Loading CV…</p>
+              </div>
+            </div>
+
+            <div class="cv-viewer__controls">
+              <button type="button" class="cv-viewer__nav" id="cv-prev" aria-label="Previous page">&larr;</button>
+              <span class="cv-viewer__page-indicator" id="cv-page-indicator">— / —</span>
+              <button type="button" class="cv-viewer__nav" id="cv-next" aria-label="Next page">&rarr;</button>
+            </div>
+
+            <p class="cv-viewer__note">Viewable only — this embed is rendered to canvas, so there's no download or print button.</p>
           </div>
 
           <div class="ai-widget placeholder-block">
@@ -104,6 +152,7 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>

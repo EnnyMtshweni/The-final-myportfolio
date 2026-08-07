@@ -480,16 +480,18 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   5. TECHNOLOGIES / SKILL BARS
-   Bars fill via a JS-set inline width, triggered once by IntersectionObserver.
-   No animation library — plain CSS transition + JS observer.
+   5. TECHNOLOGIES / SKILL CHIPS
+   Real open-source brand icons (Simple Icons — inline paths, one via CDN
+   img for a icon not hand-verified locally). Chips pop in one by one via
+   IntersectionObserver + a staggered transition-delay, then stay put —
+   no continuous loop, no bars.
    ========================================================================== */
 
 .skills-grid {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px 48px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 36px 48px;
 }
 
 .skills-category__title {
@@ -497,35 +499,65 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
   font-size: 0.95rem;
 }
 
-.skill-bar {
-  margin-bottom: 18px;
+.skills-category__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.skill-bar__head {
+.skill-chip {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 6px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+
+  /* Start state for the pop-in animation */
+  opacity: 0;
+  transform: translateY(16px) scale(0.85);
+  transition: opacity 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.2s ease;
+}
+
+.skill-chip.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.skill-chip:hover {
+  border-color: var(--ocean);
+}
+
+.skill-chip__icon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  color: var(--ocean);
+  flex-shrink: 0;
+}
+
+.skill-chip__icon svg,
+.skill-chip__icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.skill-chip__name {
   font-family: var(--font-mono);
   font-size: 0.82rem;
+  color: var(--text);
+  white-space: nowrap;
 }
 
-.skill-bar__name { color: var(--text); }
-.skill-bar__value { color: var(--text-muted); }
-
-.skill-bar__track {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--border);
-  overflow: hidden;
-}
-
-.skill-bar__fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 4px;
-  background: var(--ocean);
-  transition: width 1s ease;
+@media (prefers-reduced-motion: reduce) {
+  .skill-chip {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==========================================================================
@@ -808,7 +840,117 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   8. FOOTER
+   8. CONTACT
+   ========================================================================== */
+
+.contact-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.contact-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 28px;
+}
+
+.contact-form__field {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form__field label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  border-color: var(--ocean);
+}
+
+.contact-form__submit {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.contact-form__note {
+  margin: 14px 0 0;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.contact-form__success {
+  text-align: center;
+  padding: 20px 8px;
+}
+
+.contact-form__success h3 {
+  margin: 10px 0 8px;
+  font-size: 1.3rem;
+}
+
+.contact-form__success p:last-child {
+  color: var(--text-muted);
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
+.contact-info {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.contact-info__label {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+}
+
+.contact-info__item a {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.contact-info__item a:hover {
+  color: var(--ocean-bright);
+}
+
+.contact-info__socials {
+  display: flex;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   9. FOOTER
    ========================================================================== */
 
 .footer {
@@ -820,7 +962,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   9. BOOT OVERLAY
+   10. BOOT OVERLAY
    Full-screen "system boot" sequence, shown once before the page reveals
    itself. Pure CSS/JS — no video or external animation library.
    ========================================================================== */
@@ -953,7 +1095,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   10. AI SPEAKING PING
+   11. AI SPEAKING PING
    A small terminal-style bubble that slides in from the right edge,
    holds briefly, then slides back out — repeating on a timer.
    ========================================================================== */
@@ -999,7 +1141,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   11. RESPONSIVE
+   12. RESPONSIVE
    ========================================================================== */
 
 @media (max-width: 860px) {

@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initBootOverlay();
   initBootAnimation();
   initAiPing();
-  initSkillBars();
+  initSkillIcons();
   initCvViewer();
+  initContactForm();
 });
 
 /* ---- Footer year ---- */
@@ -198,41 +199,27 @@ function initAiPing() {
   setTimeout(cycle, INITIAL_DELAY);
 }
 
-/* ---- Technologies: animate skill bars in once, on scroll into view ---- */
-function initSkillBars() {
-  const bars = document.querySelectorAll('.skill-bar');
-  if (!bars.length) return;
+/* ---- Technologies: pop each skill chip in, one by one, once per category ---- */
+function initSkillIcons() {
+  const categories = document.querySelectorAll('.skills-category');
+  if (!categories.length) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const STAGGER = 90; // ms between each chip in a category
 
-  function fill(bar) {
-    const level = parseInt(bar.dataset.level, 10) || 0;
-    const fillEl = bar.querySelector('.skill-bar__fill');
-    const valueEl = bar.querySelector('.skill-bar__value');
-    if (!fillEl || !valueEl) return;
-
-    if (reduceMotion) {
-      fillEl.style.width = level + '%';
-      valueEl.textContent = level + '%';
-      return;
-    }
-
-    fillEl.style.width = level + '%';
-
-    // Count the label up alongside the width transition (roughly 1s, matches CSS).
-    const DURATION = 900;
-    const start = performance.now();
-
-    function tick(now) {
-      const progress = Math.min(1, (now - start) / DURATION);
-      valueEl.textContent = Math.round(progress * level) + '%';
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+  function reveal(category) {
+    const chips = category.querySelectorAll('.skill-chip');
+    chips.forEach((chip, i) => {
+      if (reduceMotion) {
+        chip.classList.add('is-visible');
+        return;
+      }
+      setTimeout(() => chip.classList.add('is-visible'), i * STAGGER);
+    });
   }
 
   if (!('IntersectionObserver' in window)) {
-    bars.forEach(fill); // fallback: just fill them
+    categories.forEach(reveal); // fallback: just show them
     return;
   }
 
@@ -240,15 +227,15 @@ function initSkillBars() {
     (entries, obs) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          fill(entry.target);
-          obs.unobserve(entry.target); // animate once, then stay filled
+          reveal(entry.target);
+          obs.unobserve(entry.target); // pop in once, then stay put
         }
       });
     },
-    { threshold: 0.35 }
+    { threshold: 0.25 }
   );
 
-  bars.forEach((bar) => observer.observe(bar));
+  categories.forEach((category) => observer.observe(category));
 }
 
 /* ---- About page: non-downloadable CV viewer, rendered to <canvas> via pdf.js ---- */
@@ -315,4 +302,26 @@ function initCvViewer() {
       if (pdfDoc && currentPage < pdfDoc.numPages) renderPage(currentPage + 1);
     });
   }
+}
+
+/* ---- Contact form: client-side only, swaps in a "Thank you" panel on submit ---- */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('contact-success');
+  if (!form || !success) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // No backend wired up yet — this is where a real submission
+    // (fetch to a form service, serverless function, etc.) would go.
+    form.hidden = true;
+    success.hidden = false;
+    success.focus?.();
+  });
 }
