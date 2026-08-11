@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) { /* localStorage unavailable — fall back to the default theme */ }
+    })();
+  </script>
   <title>About — Enny Mtshweni</title>
   <meta name="description" content="About Enny Mtshweni, Data Analyst and Web Developer" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,27 +22,7 @@
 </head>
 <body>
 
-  <!--BOOT OVERLAY -->
-  <div id="boot-overlay" class="boot-overlay" role="status" aria-live="polite">
-    <div class="boot-window">
-      <div class="boot-window__bar">
-        <span class="boot-dot boot-dot--a" aria-hidden="true"></span>
-        <span class="boot-dot boot-dot--b" aria-hidden="true"></span>
-        <span class="boot-dot boot-dot--c" aria-hidden="true"></span>
-        <span class="boot-window__title terminal-text">boot.sh</span>
-      </div>
-      <div class="boot-window__body">
-        <ul class="boot-log" id="boot-log"></ul>
-        <div class="boot-progress">
-          <div class="boot-progress__track">
-            <div class="boot-progress__fill" id="boot-progress-fill"></div>
-          </div>
-          <span class="boot-progress__pct" id="boot-progress-pct">0%</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
+ 
   <!-- NAVBAR  -->
   <header class="navbar">
     <div class="navbar__inner">

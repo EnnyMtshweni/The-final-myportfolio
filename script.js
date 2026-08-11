@@ -1,15 +1,14 @@
 // ==========================================================================
-// main.js
+// script.js
 // Scope: footer year, mobile nav toggle, full-screen boot overlay,
-// hero status line, floating AI-speaking ping.
-// Theme toggle LOGIC is intentionally deferred to Day 8 (see project plan) —
-// the button is wired for a11y/visual state only right now.
+// hero status line, floating AI-speaking ping, working dark/light toggle,
+// skill-chip pop-in, CV viewer, contact form.
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   setFooterYear();
   initNavBurger();
-  initThemeTogglePlaceholder();
+  initThemeToggle();
   initBootOverlay();
   initBootAnimation();
   initAiPing();
@@ -42,14 +41,34 @@ function initNavBurger() {
   });
 }
 
-/* ---- Theme toggle (visual placeholder only — Day 8 wires the real logic) ---- */
-function initThemeTogglePlaceholder() {
+/* ---- Theme toggle: real logic — swaps html[data-theme], persists to localStorage ---- */
+function initThemeToggle() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
 
+  const root = document.documentElement;
+
+  function currentTheme() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+
+  function syncButtonState() {
+    const isLight = currentTheme() === 'light';
+    toggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    toggle.setAttribute('aria-pressed', String(isLight));
+  }
+
+  syncButtonState();
+
   toggle.addEventListener('click', () => {
-    // Day 8 TODO: swap html[data-theme], persist choice (e.g. localStorage).
-    console.info('Theme toggle clicked — logic scheduled for Day 8.');
+    const next = currentTheme() === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {
+      /* localStorage unavailable (e.g. private browsing) — theme still applies for this session */
+    }
+    syncButtonState();
   });
 }
 
@@ -60,8 +79,8 @@ function initBootAnimation() {
 
   const messages = [
     'status: available for hire',
-    'stack: secure fintech systems',
-    'currently shipping: payment infrastructure',
+    'stack: full-stack web development',
+    'Data Analyst',
   ];
 
   let msgIndex = 0;
@@ -174,10 +193,12 @@ function initAiPing() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const messages = [
-    'Currently reviewing a fraud-detection edge case.',
-    'Tip: every project below shipped to production.',
-    'This site stores nothing about you — no tracking.',
-    'Ask about the stack — it is all under Technologies.',
+    'Hello welcome. Glad you\u2019re here.',
+    'Something to think about: if it doesn\u2019t create convenience, it isn\u2019t solving the right problem.',
+    'For more info on a project, visit its GitHub repo.',
+    'Industry Interest: Fintech, Marketing, Ecommerce,Tech, Telecom',
+    'Tip: the About page has my full story and CV.',
+    'Enny is interested in following positions : Data Analyst, Web Developer, Business Intelligence Analyst, Q&A tester, Backend developer, Software Engineer.',
   ];
 
   let index = 0;
@@ -219,7 +240,7 @@ function initSkillIcons() {
   }
 
   if (!('IntersectionObserver' in window)) {
-    categories.forEach(reveal); // fallback: just show them
+    categories.forEach(reveal); 
     return;
   }
 

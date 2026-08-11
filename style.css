@@ -219,6 +219,10 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
   box-shadow: inset -4px -2px 0 0 var(--bg);
 }
 
+html[data-theme='light'] .theme-toggle__icon {
+  box-shadow: inset 4px 2px 0 0 var(--bg);
+}
+
 .nav-burger {
   display: none;
   width: 40px;
@@ -711,7 +715,123 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   7. ABOUT PAGE
+   7. CASE STUDY PAGES
+   Standalone pages (one per deep-dive project), sharing the same navbar,
+   footer, boot overlay, and AI ping as the rest of the site.
+   ========================================================================== */
+
+.case-study-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 28px;
+  color: var(--ocean-bright);
+  transition: color 0.2s ease;
+}
+
+.case-study-back:hover {
+  color: var(--ocean);
+}
+
+.case-study-hero .section__subtitle {
+  max-width: 62ch;
+}
+
+.case-study-hero__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+.case-study-hero__tags li {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ocean-bright);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.case-study-hero__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.case-study-hero__media {
+  margin-top: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 16 / 8;
+  background: var(--bg-dark);
+}
+
+.case-study-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-study-body {
+  max-width: 760px;
+}
+
+.case-study-block {
+  margin-bottom: 44px;
+}
+
+.case-study-block:last-child {
+  margin-bottom: 0;
+}
+
+.case-study-block__title {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.case-study-block p {
+  color: var(--text-muted);
+  max-width: 68ch;
+  margin: 0 0 14px;
+}
+
+.case-study-block p:last-child {
+  margin-bottom: 0;
+}
+
+.case-study-block ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+  color: var(--text-muted);
+}
+
+.case-study-block li {
+  margin-bottom: 6px;
+}
+
+.case-study-block p strong,
+.case-study-block li strong {
+  color: var(--text);
+}
+
+.case-study-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   8. ABOUT PAGE
    ========================================================================== */
 
 .about-page__grid {
@@ -840,7 +960,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   8. CONTACT
+   9. CONTACT
    ========================================================================== */
 
 .contact-grid {
@@ -950,7 +1070,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   9. FOOTER
+   10. FOOTER
    ========================================================================== */
 
 .footer {
@@ -962,7 +1082,7 @@ h1, h2, h3 { margin: 0; font-family: var(--font-mono); letter-spacing: -0.01em; 
 }
 
 /* ==========================================================================
-   10. BOOT OVERLAY
+   11. BOOT OVERLAY
    Full-screen "system boot" sequence, shown once before the page reveals
    itself. Pure CSS/JS — no video or external animation library.
    ========================================================================== */
@@ -1095,7 +1215,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   11. AI SPEAKING PING
+   12. AI SPEAKING PING
    A small terminal-style bubble that slides in from the right edge,
    holds briefly, then slides back out — repeating on a timer.
    ========================================================================== */
@@ -1141,7 +1261,7 @@ body.boot-lock {
 }
 
 /* ==========================================================================
-   12. RESPONSIVE
+   13. RESPONSIVE
    ========================================================================== */
 
 @media (max-width: 860px) {
