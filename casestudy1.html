@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>FutureMeBank Case Study | Enny Mtshweni</title>
+  <meta name="description" content="Case study for FutureMeBank, a financial literacy product for children and parents." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="./index.html#home" class="logo">
+        <span class="logo__bracket">&lt;</span>EM<span class="logo__bracket">/&gt;</span>
+      </a>
+
+      <nav class="nav" id="primary-nav">
+        <a href="./index.html#home" class="nav__link">Home</a>
+        <a href="./aboutme.html" class="nav__link">About Me</a>
+        <a href="./index.html#technologies" class="nav__link">Technologies</a>
+        <a href="./index.html#projects" class="nav__link">Projects</a>
+        <a href="./index.html#contact" class="nav__link">Contact</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
+          <span class="theme-toggle__icon" aria-hidden="true"></span>
+        </button>
+        <button id="nav-burger" class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="case-study-page">
+    <section class="case-study-hero">
+      <div class="section__inner case-study-hero__inner">
+        <p class="section__eyebrow terminal-text">CASE STUDY 01</p>
+        <h1>FutureMeBank</h1>
+        <p class="case-study-hero__subtitle">
+          An AI-powered financial literacy ecosystem for children aged 7–17,
+          designed to build money confidence before banking becomes the focus.
+        </p>
+
+        <ul class="case-study-hero__tags">
+          <li>Product Design</li>
+          <li>Fintech</li>
+          <li>UX / UI</li>
+          <li>Research</li>
+        </ul>
+
+        <div class="case-study-hero__actions">
+          <a href="./index.html#projects" class="btn btn--primary">Back to Projects</a>
+          <a href="https://futuremebank.netlify.app/" class="btn btn--ghost" target="_blank" rel="noopener">View Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-block">
+          <p class="section__eyebrow terminal-text">Overview</p>
+          <h2 class="section__title">Designing financial confidence before banking.</h2>
+          <div class="case-study-body">
+            <p>
+              FutureMeBank is a fintech concept designed to help children build healthy financial habits before they become traditional banking customers.
+            </p>
+            <p>
+              Rather than focusing only on account ownership and saving, the product teaches children how to think about money, understand value, plan for goals and make better financial choices as they grow.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-metrics">
+          <div class="metric-card">
+            <span class="metric-card__value">7–17</span>
+            <span class="metric-card__label">Age group</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card__value">AI</span>
+            <span class="metric-card__label">Coach</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card__value">4</span>
+            <span class="metric-card__label">User groups</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-card__value">MVP</span>
+            <span class="metric-card__label">Roadmap</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-block">
+          <p class="section__eyebrow terminal-text">Problem</p>
+          <h2 class="section__title">Most youth products teach saving — not understanding.</h2>
+          <div class="case-study-body">
+            <p>
+              Many children’s banking products focus on opening an account and encouraging basic saving. I saw a different opportunity:
+              helping young users understand the principles of money before they become traditional customers.
+            </p>
+            <ul>
+              <li>Children need financial concepts explained in engaging and age-appropriate ways.</li>
+              <li>Parents need visibility into their child’s progress.</li>
+              <li>Financial literacy needs to be interactive rather than static.</li>
+              <li>Schools and banks could become future engagement partners.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-block">
+          <p class="section__eyebrow terminal-text">Solution</p>
+          <h2 class="section__title">A financial literacy ecosystem, not just a bank app.</h2>
+          <div class="case-study-body">
+            <p>
+              I designed FutureMeBank as an AI-powered financial education platform that combines lessons, goals, rewards, knowledge checks and guidance into one product experience.
+            </p>
+            <p>
+              The core idea was to teach financial behaviour first, with banking integration becoming a future addition rather than the starting point.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Child dashboard</h3>
+            <p>A central place for learning, progress, rewards and personal goals.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Parent dashboard</h3>
+            <p>Parents can track learning progress and support financial habits.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Financial lessons</h3>
+            <p>Short, practical lessons on saving, budgeting, value and goals.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Savings goals</h3>
+            <p>Helps children understand delayed gratification and planning.</p>
+          </div>
+          <div class="feature-card">
+            <h3>AI coach</h3>
+            <p>Provides personalised guidance based on progress and needs.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Investment simulator</h3>
+            <p>Introduces investing safely in a learning environment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-block">
+          <p class="section__eyebrow terminal-text">Research & Product Thinking</p>
+          <h2 class="section__title">Designing for multiple users and real-life contexts.</h2>
+          <div class="case-study-body">
+            <p>
+              The biggest challenge was understanding that this was not a single-user product. Children, parents, schools and banks all interact with the ecosystem differently.
+            </p>
+            <p>
+              I researched South African banking products, Chinese family banking models, fintech trends and financial literacy to define a more meaningful product direction grounded in user behaviour and market thinking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <div class="case-study-block">
+          <p class="section__eyebrow terminal-text">Technical Direction</p>
+          <h2 class="section__title">Scalable architecture for a growing ecosystem.</h2>
+          <div class="case-study-body">
+            <p>
+              The planned product architecture included:
+            </p>
+            <ul>
+              <li>React frontend</li>
+              <li>Python / FastAPI backend</li>
+              <li>PostgreSQL database</li>
+              <li>REST APIs</li>
+              <li>Authentication</li>
+              <li>AI integration</li>
+              <li>Future IoT and banking opportunities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__inner">
+        <p class="section__eyebrow terminal-text">What I Learned</p>
+        <h2 class="section__title">Product thinking starts before the code.</h2>
+
+        <div class="learning-grid">
+          <div class="learning-card">
+            <h3>Research matters</h3>
+            <p>Strong products grow from real user understanding rather than assumptions.</p>
+          </div>
+          <div class="learning-card">
+            <h3>Problem-first mindset</h3>
+            <p>I learned to focus on why a product matters, not only what can be built.</p>
+          </div>
+          <div class="learning-card">
+            <h3>Build for the future</h3>
+            <p>A clear MVP and roadmap help turn a concept into something scalable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-study-cta-section">
+      <div class="section__inner">
+        <div class="case-study-cta">
+          <p class="section__eyebrow terminal-text">Final Reflection</p>
+          <h2>Don’t build what you can code — build what should exist.</h2>
+          <p>
+            FutureMeBank taught me that good product design begins with understanding the user, the problem and the context around the solution.
+          </p>
+          <a href="./index.html#contact" class="btn btn--primary">Let’s Connect</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="terminal-text">&copy; <span id="year"></span> Enny Mtshweni's Portfolio.</p>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
