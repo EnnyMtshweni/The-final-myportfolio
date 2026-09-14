@@ -195,8 +195,8 @@ function initAiPing() {
   const messages = [
     'Hello welcome. Glad you\u2019re here.',
     'Something to think about: if it doesn\u2019t create convenience, it isn\u2019t solving the right problem.',
-    'For more info on a project, visit its GitHub repo.',
-    'Industry Interest: Fintech, Marketing, Ecommerce,Tech, Telecom',
+    'Thinking beyond the code.',
+    'Industry Interest: Fintech, Marketing, Ecommerce,Tech, Mining, Logistics and Consulting space',
     'Tip: the About page has my full story and CV.',
     'Enny is interested in following positions : Data Analyst, Web Developer, Business Intelligence Analyst, Q&A tester, Backend developer, Software Engineer.',
   ];
