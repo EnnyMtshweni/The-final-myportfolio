@@ -79,7 +79,7 @@ function initBootAnimation() {
 
   const messages = [
     'status: available for hire',
-    'stack: full-stack web development',
+    'stack: Software Developer',
     'Data Analyst',
   ];
 
